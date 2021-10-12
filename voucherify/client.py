@@ -35,7 +35,7 @@ class VoucherifyRequest(object):
             )
             response.raise_for_status()
         except requests.HTTPError as e:
-            response = json.loads(e.read())
+            raise VoucherifyError(e.response.json())
         except requests.ConnectionError as e:
             raise VoucherifyError(e)
 
