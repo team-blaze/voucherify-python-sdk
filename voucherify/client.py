@@ -33,6 +33,7 @@ class VoucherifyRequest(object):
                 timeout=self.timeout,
                 **kwargs
             )
+            response.raise_for_status()
         except requests.HTTPError as e:
             response = json.loads(e.read())
         except requests.ConnectionError as e:
