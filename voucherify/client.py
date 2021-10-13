@@ -23,21 +23,16 @@ class VoucherifyRequest(object):
         }
 
     def request(self, path, method='GET', **kwargs):
-        try:
-            url = self.url + path
+        url = self.url + path
 
-            response = requests.request(
-                method=method,
-                url=url,
-                headers=self.headers,
-                timeout=self.timeout,
-                **kwargs
-            )
-            response.raise_for_status()
-        except requests.HTTPError as e:
-            raise VoucherifyError(e.response.json())
-        except requests.ConnectionError as e:
-            raise VoucherifyError(e)
+        response = requests.request(
+            method=method,
+            url=url,
+            headers=self.headers,
+            timeout=self.timeout,
+            **kwargs
+        )
+        response.raise_for_status()
 
         if response.headers.get('content-type') and 'json' in response.headers['content-type']:
             result = response.json()
