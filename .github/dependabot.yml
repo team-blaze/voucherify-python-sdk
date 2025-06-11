@@ -1,0 +1,19 @@
+version: 2
+updates:
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      time: "00:00"
+    allow:
+      - dependency-name: "*"
+        dependency-type: "production"
+    # Disable version update, only allow security update
+    open-pull-requests-limit: 0
+    groups:
+      vulnerability-updates:
+        dependency-type: "production"
+        applies-to: security-updates
+        update-types:
+          - "patch"
+          - "minor"
